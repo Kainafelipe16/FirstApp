@@ -6,13 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.kaina.firstapp.R
-import com.kaina.firstapp.databinding.ActivityMainBinding
+import androidx.fragment.app.viewModels
 import com.kaina.firstapp.databinding.FragmentCalculoBinding
+import com.kaina.firstapp.service.model.Pessoa
+import com.kaina.firstapp.viewmodel.PessoaViewModel
 import java.time.LocalDateTime
 
-class CalculoFragment : Fragment() {
+class PessoaFragment : Fragment() {
+    private val viewModel: PessoaViewModel by viewModels()
+
     private var _binding: FragmentCalculoBinding? = null
     private val binding: FragmentCalculoBinding get() = _binding!!
     override fun onCreateView(
@@ -28,26 +32,31 @@ class CalculoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnEnviar.setOnClickListener{
+        binding.btnEnviar.setOnClickListener {
             var nome = binding.edtNome.editableText.toString()
-
-            binding.tvNome.text = "Nome: $nome"
-
             var anoNascimento = binding.edtNascimento.editableText.toString()
-            val anoAtual = LocalDateTime.now().year
-            var idade = 2024 - anoNascimento.toInt()
 
-            binding.tvIdade.text = "Idade: $idade"
+            if (nome != "" && anoNascimento != "") {
+                binding.tvNome.text = "Nome: $nome"
+
+                val anoAtual = LocalDateTime.now().year
+                var idade = 2024 - anoNascimento.toInt()
+
+                binding.tvIdade.text = "Idade: $idade"
+
+                viewModel.insert(
+                    Pessoa(
+                        nome = nome,
+                        idade = idade
+                    )
+                )
+
+                binding.edtNome.editableText.clear()
+                binding.edtNascimento.editableText.clear()
+            }
+            else {
+                Toast.makeText(requireContext(), "Por favor, preencha os campos em branco !", Toast.LENGTH_LONG).show()
+            }
         }
     }
 }
-
-//binding.btnEnviar.setOnClickListener {
-//      val nome = binding.edtNome.editableText.toString()
-//      binding.tvNome.text = "Nome: $nome"
-
-//    val anoNasc = binding.edtNascimento.editableText.toString()
-//    val anoAtual = LocalDateTime.now().year
-//    val idade = anoAtual - anoNasc.toInt()
-//      binding.tvIdade.text = "Idade: $idade"
-//    }
