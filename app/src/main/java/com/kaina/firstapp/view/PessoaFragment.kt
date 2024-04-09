@@ -9,22 +9,22 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
-import com.kaina.firstapp.databinding.FragmentCalculoBinding
+import androidx.navigation.fragment.findNavController
+import com.kaina.firstapp.databinding.FragmentPessoaBinding
 import com.kaina.firstapp.service.model.Pessoa
 import com.kaina.firstapp.viewmodel.PessoaViewModel
 import java.time.LocalDateTime
 
 class PessoaFragment : Fragment() {
     private val viewModel: PessoaViewModel by viewModels()
-
-    private var _binding: FragmentCalculoBinding? = null
-    private val binding: FragmentCalculoBinding get() = _binding!!
+    private var _binding: FragmentPessoaBinding? = null
+    private val binding: FragmentPessoaBinding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentCalculoBinding.inflate(inflater, container, false)
+        _binding = FragmentPessoaBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -53,6 +53,7 @@ class PessoaFragment : Fragment() {
 
                 binding.edtNome.editableText.clear()
                 binding.edtNascimento.editableText.clear()
+                findNavController().navigateUp()
             }
             else {
                 Toast.makeText(requireContext(), "Por favor, preencha os campos em branco !", Toast.LENGTH_LONG).show()
