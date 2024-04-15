@@ -37,17 +37,35 @@ class PessoaFragment : Fragment() {
             var anoNascimento = binding.edtNascimento.editableText.toString()
 
             if (nome != "" && anoNascimento != "") {
-                binding.tvNome.text = "Nome: $nome"
+                var sexo = ""
+                if (binding.rbMasc.isChecked) {
+                    sexo = "Masculino"
+                } else {
+                    sexo = "Feminino"
+                }
 
                 val anoAtual = LocalDateTime.now().year
                 var idade = 2024 - anoNascimento.toInt()
+                var faixaEtaria = ""
 
-                binding.tvIdade.text = "Idade: $idade"
+                if (idade <= 12) {
+                    faixaEtaria = "Infantil"
+                } else if (idade <= 17) {
+                    faixaEtaria = "Adolescente"
+                } else if (idade <= 64) {
+                    faixaEtaria = "Adulto"
+                } else if (idade <= 110) {
+                    faixaEtaria = "Idosos"
+                } else {
+                    Toast.makeText(requireContext(), "Você está MORTO !!", Toast.LENGTH_SHORT).show()
+                }
 
                 viewModel.insert(
                     Pessoa(
                         nome = nome,
-                        idade = idade
+                        idade = idade,
+                        sexo = sexo,
+                        faixaEtaria = faixaEtaria
                     )
                 )
 

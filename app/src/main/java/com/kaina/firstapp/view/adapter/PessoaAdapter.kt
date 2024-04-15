@@ -1,6 +1,7 @@
 package com.kaina.firstapp.view.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kaina.firstapp.databinding.ListItemPessoaBinding
@@ -13,6 +14,19 @@ class PessoaAdapter (pessoas: List<Pessoa>?, private val clickListener: (Pessoa)
         fun bind(pessoa: Pessoa, clickListener: (Pessoa) -> Unit) {
             binding.tvNome.text = pessoa.nome
             binding.tvIdade.text = pessoa.idade.toString()
+            binding.tvFaixaetaria.text = pessoa.faixaEtaria
+
+            if (pessoa.sexo == "Masculino") {
+                binding.imgMasc.visibility = View.VISIBLE
+                binding.imgFem.visibility = View.GONE
+            } else {
+                binding.imgFem.visibility = View.VISIBLE
+                binding.imgMasc.visibility = View.GONE
+            }
+
+            binding.root.setOnClickListener{
+                (clickListener(pessoa))
+            }
         }
     }
 
