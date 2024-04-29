@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.PessoaFragment">
 
     <TextView
@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:text="Nome:"
         android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="20sp"
         tools:ignore="HardcodedText" />
 
@@ -21,6 +23,8 @@
         android:layout_height="wrap_content"
         android:text="Idade:"
         android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@id/tvNome"
+        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="15dp"
         tools:ignore="HardcodedText" />
 
@@ -30,6 +34,7 @@
         android:layout_height="wrap_content"
         android:hint="Digite seu nome: "
         android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/tvIdade"
         tools:ignore="HardcodedText"
         android:autofillHints=""
         android:layout_marginTop="15dp"/>
@@ -40,13 +45,17 @@
         android:layout_height="wrap_content"
         android:hint="Digite sua data de nascimento: "
         android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/edtNome"
         tools:ignore="HardcodedText"
         android:layout_marginTop="20sp"
         android:autofillHints="" />
 
     <RadioGroup
+        android:id="@+id/rgMascFem"
         android:layout_width="200dp"
-        android:layout_height="100dp" >
+        android:layout_height="100dp"
+        app:layout_constraintTop_toBottomOf="@id/edtNascimento"
+        tools:ignore="MissingConstraints">
         <RadioButton
             android:id="@+id/rbMasc"
             android:layout_width="wrap_content"
@@ -71,5 +80,26 @@
         android:text="Enviar"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/rgMascFem"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
         tools:ignore="HardcodedText" />
-</LinearLayout>
+
+    <Button
+        android:id="@+id/btnExcluir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Excluir"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        android:textStyle="bold"
+        android:textColor="@color/red"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        app:layout_constraintTop_toBottomOf="@id/btnEnviar"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

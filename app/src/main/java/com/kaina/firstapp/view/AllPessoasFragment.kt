@@ -1,10 +1,10 @@
 package com.kaina.firstapp.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,8 +16,11 @@ import com.kaina.firstapp.viewmodel.AllPessoasViewModel
 class AllPessoasFragment : Fragment() {
     private val viewModel: AllPessoasViewModel by viewModels()
     private lateinit var adapter: PessoaAdapter
+
+    //Criar o Binding
     private var _binding: FragmentAllPessoasBinding? = null
     private val binding: FragmentAllPessoasBinding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,8 +34,11 @@ class AllPessoasFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //Quando clicar em algum item da lista
-        adapter = PessoaAdapter(viewModel.pessoaList.value) {
-            pessoa ->
+        adapter = PessoaAdapter(viewModel.pessoaList.value) { pessoa ->
+            val pessoaBundle = Bundle()
+            pessoaBundle.putInt("pessoaId", pessoa.id)
+            arguments = pessoaBundle
+            findNavController().navigate(R.id.pessoaDetailFragment, arguments)
         }
 
         //Configura o Recycler

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.PessoaDetailFragment">
+
+    <ImageView
+        android:id="@+id/imgPessoa"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/pessoa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:id="@+id/tvNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome: "
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/imgPessoa"
+        android:layout_marginTop="20sp"
+        tools:ignore="HardcodedText,MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvIdade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Idade: "
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/tvNome"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="15dp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/tvFaixaetaria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Faixa: "
+        android:textStyle="bold"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@id/tvIdade"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/tvSexo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sexo: "
+        android:textStyle="bold"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@id/tvFaixaetaria"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="15dp" />
+
+    <ImageView
+        android:id="@+id/imgMasc"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/masc"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toEndOf="@id/tvSexo"
+        app:layout_constraintBottom_toBottomOf="@id/tvSexo"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imgFem"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/fem"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/imgMasc"
+        app:layout_constraintBottom_toBottomOf="@id/imgMasc"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

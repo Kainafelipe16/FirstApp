@@ -3,7 +3,7 @@
     <style name="Base.Theme.FirstApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">#0EADD5</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
     </style>
 
     <style name="Theme.FirstApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">

@@ -11,6 +11,7 @@ class PessoaAdapter (pessoas: List<Pessoa>?, private val clickListener: (Pessoa)
     private var pessoaList: List<Pessoa> = arrayListOf()
 
     class PessoaViewHolder(private val binding: ListItemPessoaBinding) : RecyclerView.ViewHolder(binding.root) {
+        // Carrega as informações da pessoa na lista
         fun bind(pessoa: Pessoa, clickListener: (Pessoa) -> Unit) {
             binding.tvNome.text = pessoa.nome
             binding.tvIdade.text = pessoa.idade.toString()
@@ -24,6 +25,7 @@ class PessoaAdapter (pessoas: List<Pessoa>?, private val clickListener: (Pessoa)
                 binding.imgMasc.visibility = View.GONE
             }
 
+            //Configura o click de algum item da lista
             binding.root.setOnClickListener{
                 (clickListener(pessoa))
             }

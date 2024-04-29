@@ -1,5 +1,6 @@
 package com.kaina.firstapp.view
 
+import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -32,19 +33,23 @@ class PessoaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Carregar a pessoa, caso tenha selecionado
+        arguments?.let {
+            viewModel.getPessoa(it.getInt("pessoaId"))
+        }
+
         binding.btnEnviar.setOnClickListener {
             var nome = binding.edtNome.editableText.toString()
             var anoNascimento = binding.edtNascimento.editableText.toString()
+            var sexo = ""
 
-            if (nome != "" && anoNascimento != "") {
-                var sexo = ""
+            if (nome != "" && anoNascimento != "" && binding.rbMasc.isChecked || binding.rbFem.isChecked) {
                 if (binding.rbMasc.isChecked) {
                     sexo = "Masculino"
                 } else {
                     sexo = "Feminino"
                 }
 
-                val anoAtual = LocalDateTime.now().year
                 var idade = 2024 - anoNascimento.toInt()
                 var faixaEtaria = ""
 
@@ -60,14 +65,19 @@ class PessoaFragment : Fragment() {
                     Toast.makeText(requireContext(), "Você está MORTO !!", Toast.LENGTH_SHORT).show()
                 }
 
-                viewModel.insert(
-                    Pessoa(
-                        nome = nome,
-                        idade = idade,
-                        sexo = sexo,
-                        faixaEtaria = faixaEtaria
-                    )
+                val pessoa = Pessoa(
+                    nome = nome,
+                    idade = idade,
+                    sexo = sexo,
+                    faixaEtaria = faixaEtaria
                 )
+
+                viewModel.pessoa.value?.let { 
+                    pessoa.id = it.id
+                    viewModel.update(pessoa)
+                } ?: run {
+                    viewModel.insert(pessoa)
+                }
 
                 binding.edtNome.editableText.clear()
                 binding.edtNascimento.editableText.clear()
@@ -76,6 +86,31 @@ class PessoaFragment : Fragment() {
             else {
                 Toast.makeText(requireContext(), "Por favor, preencha os campos em branco !", Toast.LENGTH_LONG).show()
             }
+        }
+
+        binding.btnExcluir.setOnClickListener {
+            AlertDialog.Builder(requireContext())
+                .setTitle("Excluir pessoa!")
+                .setMessage("Você deseja realmente excluir esta pessoa?")
+                .setPositiveButton("Sim") { _,_ ->
+                    viewModel.delete(viewModel.pessoa.value?.id ?: 0)
+                    findNavController().navigateUp()
+                }
+                .setNegativeButton("Não") { _,_ -> }
+                .show()
+        }
+
+        viewModel.pessoa.observe(viewLifecycleOwner) { pessoa ->
+            binding.edtNome.setText(pessoa.nome)
+            binding.edtNascimento.setText((LocalDateTime.now().year - pessoa.idade).toString())
+
+            if (pessoa.sexo == "Masculino") {
+                binding.rbMasc.isChecked = true
+            } else {
+                binding.rbFem.isChecked = true
+            }
+
+            binding.btnExcluir.visibility = View.VISIBLE
         }
     }
 }
